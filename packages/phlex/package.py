@@ -21,6 +21,8 @@ class Phlex(CMakePackage, FnalGithubPackage):
 
     cxxstd_variant("20", "23", default="20", sticky=True)
 
+    variant("form", default=False, description="Build with experimental FORM integration")
+
     depends_on("boost@1.75.0: +json+program_options+stacktrace")
     depends_on("fmt@:9")
     depends_on("jsonnet")
@@ -29,7 +31,15 @@ class Phlex(CMakePackage, FnalGithubPackage):
     depends_on("libbacktrace +shared")
     depends_on("catch2", type=("build", "test"))
 
+    with when("+form"):
+        # Put depends_on() calls specific to FORM here
+        pass
+
+
     def cmake_args(self):
+        define = self.define
+        define_from_variant = self.define_from_variant
         return [
             self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
+            self.define_from_variant("PHLEX_USE_FORM", "form")
         ]
