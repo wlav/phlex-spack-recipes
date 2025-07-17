@@ -41,6 +41,6 @@ class Phlex(CMakePackage, FnalGithubPackage):
         define = self.define
         define_from_variant = self.define_from_variant
         return [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
             self.define_from_variant("PHLEX_USE_FORM", "form")
         ]
