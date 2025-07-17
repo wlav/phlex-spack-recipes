@@ -4,13 +4,14 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 from spack.package import *
-from spack.pkg.fnal_art.fnal_github_package import *
+from spack_repo.builtin.build_systems.cmake import CMakePackage
+from spack_repo.fnal_art.packages.fnal_github_package.package import *
 
 
-class Meld(CMakePackage, FnalGithubPackage):
-    """A project for exploring how to meet DUNE's framework needs."""
+class Phlex(CMakePackage, FnalGithubPackage):
+    """Parallel, hierarchical, and layered execution of data-processing algorithms"""
 
-    repo = "knoepfel/meld.git"
+    repo = "framework-r-d/phlex.git"
     version_patterns = []
 
     maintainers("knoepfel")
@@ -21,7 +22,7 @@ class Meld(CMakePackage, FnalGithubPackage):
 
     cxxstd_variant("20", "23", default="20", sticky=True)
 
-    depends_on("cxx", type="build")
+    variant("form", default=False, description="Build with experimental FORM integration")
 
     depends_on("boost@1.75.0: +json+program_options+stacktrace")
     depends_on("fmt@:9")
@@ -31,7 +32,15 @@ class Meld(CMakePackage, FnalGithubPackage):
     depends_on("libbacktrace +shared")
     depends_on("catch2", type=("build", "test"))
 
+    with when("+form"):
+        # Put depends_on() calls specific to FORM here
+        pass
+
+
     def cmake_args(self):
+        define = self.define
+        define_from_variant = self.define_from_variant
         return [
             self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
+            self.define_from_variant("PHLEX_USE_FORM", "form")
         ]
