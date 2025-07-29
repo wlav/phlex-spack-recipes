@@ -11,7 +11,7 @@ from spack_repo.fnal_art.packages.fnal_github_package.package import *
 class Phlex(CMakePackage, FnalGithubPackage):
     """Parallel, hierarchical, and layered execution of data-processing algorithms"""
 
-    repo = "framework-r-d/phlex.git"
+    git = "https://github.com/framework-r-d/phlex.git"
     version_patterns = []
 
     maintainers("knoepfel")
@@ -24,12 +24,13 @@ class Phlex(CMakePackage, FnalGithubPackage):
 
     variant("form", default=False, description="Build with experimental FORM integration")
 
+    depends_on("cxx", type="build")
+
     depends_on("boost@1.75.0: +json+program_options+stacktrace")
     depends_on("fmt@:9")
     depends_on("jsonnet")
     depends_on("spdlog")
     depends_on("tbb")
-    depends_on("libbacktrace +shared")
     depends_on("catch2", type=("build", "test"))
 
     with when("+form"):
