@@ -34,8 +34,7 @@ class Phlex(CMakePackage, FnalGithubPackage):
     depends_on("catch2", type=("build", "test"))
 
     with when("+form"):
-        # Put depends_on() calls specific to FORM here
-        pass
+        depends_on("root +root7")
 
 
     def cmake_args(self):
