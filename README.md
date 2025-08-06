@@ -8,7 +8,7 @@ For example, assuming bash (see [spack documentation](https://spack-tutorial.rea
 ```
 $ git clone --depth=2 https://github.com/spack/spack.git
 $ . spack/share/spack/setup-env.sh
-$ git clone https://github.com/FNALssi/fnal_art
+$ git clone https://github.com/FNALssi/fnal_art.git
 $ spack repo add ./fnal_art/spack_repo/fnal_art
 $ git clone https://github.com/Framework-R-D/phlex-spack-recipes.git
 $ spack repo add ./phlex-spack-recipes/spack_repo/phlex/
